@@ -12,13 +12,14 @@ namespace HousekeeperHelperProject.Mocking
 
         public static bool SendStatementEmails(DateTime statementDate)
         {
-            var housekeepers = UnitOfWork.Query<Housekeeper>();
+            var housekeepers = UnitOfWork.Query<Housekeeper>(); // Get housekeepers from database
 
             foreach (var housekeeper in housekeepers)
             {
                 if (housekeeper.Email == null)
                     continue;
 
+                // For each housekeeper, it's going to save statement to file
                 var statementFilename = SaveStatement(housekeeper.Oid, housekeeper.FullName, statementDate);
 
                 if (string.IsNullOrWhiteSpace(statementFilename))
@@ -27,6 +28,7 @@ namespace HousekeeperHelperProject.Mocking
                 var emailAddress = housekeeper.Email;
                 var emailBody = housekeeper.StatementEmailBody;
 
+                // It will try to email statement to housekeeper. If it fails, it will show a message box
                 try
                 {
                     EmailFile(emailAddress, emailBody, statementFilename,
