@@ -130,20 +130,20 @@ namespace HousekeeperHelperProject.Mocking
 
     public class SystemSettingsHelper
     {
-        public static string EmailSmtpHost { get; set; }
+        public static string? EmailSmtpHost { get; set; }
         public static int EmailPort { get; set; }
-        public static string EmailUsername { get; set; }
-        public static string EmailPassword { get; set; }
-        public static string EmailFromEmail { get; set; }
-        public static string EmailFromName { get; set; }
+        public static string? EmailUsername { get; set; }
+        public static string? EmailPassword { get; set; }
+        public static string? EmailFromEmail { get; set; }
+        public static string? EmailFromName { get; set; }
     }
 
     public class Housekeeper
     {
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public int Oid { get; set; }
-        public string FullName { get; set; }
-        public string StatementEmailBody { get; set; }
+        public string? FullName { get; set; }
+        public string? StatementEmailBody { get; set; }
     }
 
     public class HousekeeperStatementReport

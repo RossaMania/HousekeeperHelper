@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HousekeeperHelper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a77a4128528f618323291b699c8d1fe6f12e93c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("HousekeeperHelper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HousekeeperHelper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
