@@ -17,7 +17,7 @@ namespace HousekeeperHelperProject.Mocking
 
         public bool SendStatementEmails(DateTime statementDate)
         {
-            var housekeepers = UnitOfWork.Query<Housekeeper>(); // Get housekeepers from database
+            var housekeepers = _unitOfWork.Query<Housekeeper>(); // Get housekeepers from database
 
             foreach (var housekeeper in housekeepers)
             {
