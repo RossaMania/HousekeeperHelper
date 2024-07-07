@@ -6,11 +6,16 @@ using System.Text;
 
 namespace HousekeeperHelperProject.Mocking
 {
-    public static class HousekeeperHelper
+    public  class HousekeeperHelper
     {
-        private static readonly UnitOfWork UnitOfWork = new UnitOfWork();
+        private readonly IUnitOfWork _unitOfWork;
 
-        public static bool SendStatementEmails(DateTime statementDate)
+        public HousekeeperHelper(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public bool SendStatementEmails(DateTime statementDate)
         {
             var housekeepers = UnitOfWork.Query<Housekeeper>(); // Get housekeepers from database
 
