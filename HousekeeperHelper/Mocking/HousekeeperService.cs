@@ -1,13 +1,13 @@
 using System;
 using System.IO;
 
-namespace HousekeeperHelperProject.Mocking
+namespace HousekeeperServiceProject.Mocking
 {
-    public class HousekeeperHelper
+    public class HousekeeperService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public HousekeeperHelper(IUnitOfWork unitOfWork, IStatementGenerator statementGenerator, IEmailSender emailSender, IXtraMessageBox xtraMessageBox)
+        public HousekeeperService(IUnitOfWork unitOfWork, IStatementGenerator statementGenerator, IEmailSender emailSender, IXtraMessageBox xtraMessageBox)
         {
             _unitOfWork = unitOfWork;
             _statementGenerator = statementGenerator;
