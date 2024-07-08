@@ -3,7 +3,7 @@ using System.IO;
 
 namespace HousekeeperHelperProject.Mocking
 {
-    public  class HousekeeperHelper
+    public class HousekeeperHelper
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,7 +15,7 @@ namespace HousekeeperHelperProject.Mocking
             _xtraMessageBox = xtraMessageBox;
         }
 
-        public bool SendStatementEmails(DateTime statementDate)
+        public void SendStatementEmails(DateTime statementDate)
         {
             var housekeepers = _unitOfWork.Query<Housekeeper>(); // Get housekeepers from database
 
@@ -45,10 +45,7 @@ namespace HousekeeperHelperProject.Mocking
                         MessageBoxButtons.OK);
                 }
             }
-
-            return true;
         }
-
     }
 
     public enum MessageBoxButtons
