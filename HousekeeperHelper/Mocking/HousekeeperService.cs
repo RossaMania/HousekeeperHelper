@@ -1,11 +1,17 @@
 using System;
 using System.IO;
+using System.Linq;
+
+using HousekeeperHelperProject.Mocking;
 
 namespace HousekeeperServiceProject.Mocking
 {
     public class HousekeeperService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IStatementGenerator _statementGenerator;
+        private readonly IEmailSender _emailSender;
+        private readonly IXtraMessageBox _xtraMessageBox;
 
         public HousekeeperService(IUnitOfWork unitOfWork, IStatementGenerator statementGenerator, IEmailSender emailSender, IXtraMessageBox xtraMessageBox)
         {
@@ -25,7 +31,7 @@ namespace HousekeeperServiceProject.Mocking
                     continue;
 
                 // For each housekeeper, it's going to save statement to file
-                var statementFilename = _statementGenerator.SaveStatement(housekeeper.Oid, housekeeper.FullName, statementDate);
+                var statementFilename = _statementGenerator.SaveStatement(housekeeper.Oid, housekeeper.FullName ?? string.Empty, statementDate);
 
                 if (string.IsNullOrWhiteSpace(statementFilename))
                     continue;
@@ -36,7 +42,7 @@ namespace HousekeeperServiceProject.Mocking
                 // It will try to email statement to housekeeper. If it fails, it will show a message box
                 try
                 {
-                    _emailSender.EmailFile(emailAddress, emailBody, statementFilename,
+                    _emailSender.EmailFile(emailAddress, emailBody ?? string.Empty, statementFilename,
                         string.Format("Sandpiper Statement {0:yyyy-MM} {1}", statementDate, housekeeper.FullName));
                 }
                 catch (Exception e)
