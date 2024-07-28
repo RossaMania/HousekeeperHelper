@@ -66,6 +66,21 @@ namespace HousekeeperServiceProject.Tests
                 Times.Never());
         }
 
+        [Test]
+        public void SendStatementEmails_WhenCalled_EmailStatement()
+        {
+            // Arrange
+            _statementGenerator.Setup(sg => sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate))
+                .Returns("filename");
+
+            // Act
+            _service.SendStatementEmails(_statementDate);
+
+            // Assert
+            _emailSender.Verify(es =>
+                es.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody ?? string.Empty, "filename", "Sandpiper Statement 2017-01 b"));
+        }
+
     }
 
 }
