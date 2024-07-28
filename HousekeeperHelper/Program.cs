@@ -1,16 +1,20 @@
 ﻿using System;
-using HousekeeperHelperProject.Mocking;
+using HousekeeperServiceProject.Mocking;
 
-namespace HousekeeperHelperProject
+namespace HousekeeperHelper
 {
     class Program
     {
         static void Main(string[] args)
         {
             var unitOfWork = new UnitOfWork();
-            var housekeeperHelper = new HousekeeperHelper(unitOfWork);
+            var statementGenerator = new StatementGenerator();
+            var emailSender = new EmailSender();
+            var xtraMessageBox = new XtraMessageBox();
 
-            housekeeperHelper.SendStatementEmails(DateTime.Now);
+            var housekeeperService = new HousekeeperService(unitOfWork, statementGenerator, emailSender, xtraMessageBox);
+
+            housekeeperService.SendStatementEmails(DateTime.Now);
         }
     }
 }

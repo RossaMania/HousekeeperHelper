@@ -1,17 +1,17 @@
 using System;
 using System.IO;
-using HousekeeperHelperProject.Mocking;
+using HousekeeperServiceProject.Mocking;
 
-namespace HousekeeperHelperProject.Mocking
+namespace HousekeeperServiceProject.Mocking
 {
-  public interface IStatementGenerator
+    public interface IStatementGenerator
     {
         string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate);
     }
 
     public class StatementGenerator : IStatementGenerator
     {
-      public string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate)
+        public string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate)
         {
             var report = new HousekeeperStatementReport(housekeeperOid, statementDate);
 

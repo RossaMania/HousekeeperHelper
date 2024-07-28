@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace HousekeeperHelperProject.Mocking
+namespace HousekeeperServiceProject.Mocking
 {
     public class UnitOfWork : IUnitOfWork
     {
