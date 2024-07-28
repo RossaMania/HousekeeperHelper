@@ -18,7 +18,7 @@ namespace HousekeeperServiceProject.Tests
 
         private DateTime _statementDate = new DateTime(2017, 1, 1);
         private Housekeeper _houseKeeper;
-        private string _statementFileName;
+        private string _statementFileName = "filename";
 
         [SetUp]
         public void SetUp()
@@ -70,9 +70,10 @@ namespace HousekeeperServiceProject.Tests
         [Test]
         public void SendStatementEmails_WhenCalled_EmailStatement()
         {
-            _statementFileName = "filename";
+
             // Arrange
-            _statementGenerator.Setup(sg => sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate))
+            _statementGenerator
+                .Setup(sg => sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate))
                 .Returns(_statementFileName);
 
             // Act
@@ -80,7 +81,30 @@ namespace HousekeeperServiceProject.Tests
 
             // Assert
             _emailSender.Verify(es =>
-                es.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody ?? string.Empty, "filename", "Sandpiper Statement 2017-01 b"));
+                es.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody ?? string.Empty, _statementFileName, "Sandpiper Statement 2017-01 b"));
+        }
+
+        [Test]
+        [TestCase("")] // Empty string
+        [TestCase(" ")] // Whitespace
+        public void SendStatementEmails_InvalidStatementFileName_ShouldNotEmailStatement(string statementFileName)
+        {
+            // Arrange
+            _statementGenerator
+                .Setup(sg => sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate))
+                .Returns(() => statementFileName);
+
+            // Act
+            _service.SendStatementEmails(_statementDate);
+
+            // Assert
+            _emailSender.Verify(es =>
+                es.EmailFile(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                  Times.Never);
         }
 
     }
