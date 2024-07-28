@@ -65,6 +65,40 @@ namespace HousekeeperServiceProject.Tests
 
         }
 
+        [Test]
+        public void SendStatementEmails_HouseKeepersEmailIsWhitespace_ShouldNotGenerateStatements()
+        {
+
+            //Arrange
+            _houseKeeper.Email = " "; // whitespace
+
+            _service.SendStatementEmails(_statementDate);
+
+            // Assert
+            // Verify that SaveStatement was never called because there's no email address.
+            _statementGenerator.Verify(sg =>
+                sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate),
+                Times.Never());
+
+        }
+
+        [Test]
+        public void SendStatementEmails_HouseKeepersEmailIsEmptyString_ShouldNotGenerateStatements()
+        {
+
+            //Arrange
+            _houseKeeper.Email = ""; // Empty string
+
+            _service.SendStatementEmails(_statementDate);
+
+            // Assert
+            // Verify that SaveStatement was never called because there's no email address.
+            _statementGenerator.Verify(sg =>
+                sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate),
+                Times.Never());
+
+        }
+
     }
 
 }

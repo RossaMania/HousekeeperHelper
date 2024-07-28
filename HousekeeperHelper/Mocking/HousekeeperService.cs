@@ -25,7 +25,7 @@ namespace HousekeeperServiceProject.Mocking
 
             foreach (var housekeeper in housekeepers)
             {
-                if (housekeeper.Email == null)
+                if (String.IsNullOrWhiteSpace(housekeeper.Email))
                     continue;
 
                 // For each housekeeper, it's going to save statement to file
