@@ -18,6 +18,7 @@ namespace HousekeeperServiceProject.Tests
 
         private DateTime _statementDate = new DateTime(2017, 1, 1);
         private Housekeeper _houseKeeper;
+        private string _statementFileName;
 
         [SetUp]
         public void SetUp()
@@ -69,9 +70,10 @@ namespace HousekeeperServiceProject.Tests
         [Test]
         public void SendStatementEmails_WhenCalled_EmailStatement()
         {
+            _statementFileName = "filename";
             // Arrange
             _statementGenerator.Setup(sg => sg.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName ?? string.Empty, _statementDate))
-                .Returns("filename");
+                .Returns(_statementFileName);
 
             // Act
             _service.SendStatementEmails(_statementDate);
